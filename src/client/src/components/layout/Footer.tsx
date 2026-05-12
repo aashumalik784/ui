@@ -86,9 +86,9 @@ export default function Footer() {
 
                 <div className="flex flex-col items-center justify-between md:flex-row">
                     <p className="text-center text-xs text-muted-foreground md:text-left md:text-sm">
-                        © {new Date().getFullYear()} {t("projectName")} by{" "}
+                        © {new Date().getFullYear()} {t("common:projectName")} by{" "}
                         <Link to={t("common:opensource.git-url")} className="underline" target="_blank" rel="noopener">
-                            {t("authors")}
+                            {t("common:authors")}
                         </Link>
                         . All rights reserved.
                     </p>

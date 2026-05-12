@@ -9,6 +9,41 @@ export const supportedLocales = [
         label: "English",
         primaryTranslationTmdb: "en-US",
     },
+    {
+        iso639: "zh",
+        label: "中文",
+        primaryTranslationTmdb: "zh-CN",
+    },
+    {
+        iso639: "hi",
+        label: "हिन्दी",
+        primaryTranslationTmdb: "hi",
+    },
+    {
+        iso639: "ko",
+        label: "한국어",
+        primaryTranslationTmdb: "ko",
+    },
+    {
+        iso639: "de",
+        label: "Deutsch",
+        primaryTranslationTmdb: "de",
+    },
+    {
+        iso639: "fr",
+        label: "Français",
+        primaryTranslationTmdb: "fr",
+    },
+    {
+        iso639: "es",
+        label: "Español",
+        primaryTranslationTmdb: "es",
+    },
+    {
+        iso639: "it",
+        label: "Italiano",
+        primaryTranslationTmdb: "it",
+    },
 ] as const
 
 export type AppSettings = {

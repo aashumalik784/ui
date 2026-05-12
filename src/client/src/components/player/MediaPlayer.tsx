@@ -160,6 +160,8 @@ export function MediaPlayer() {
         />
     )
 
+    console.log(media?.backdropUrl.replace("w300", "original"))
+
     return (
         <div ref={containerRef} className="group relative h-screen w-full overflow-hidden" onMouseMove={handleMouseMove} onMouseLeave={() => setShowControls(false)}>
             <video

@@ -34,8 +34,7 @@ export function HeroCarousel({ tmdb, fetcher }: { tmdb: TMDB; fetcher: HeroFetch
     const heroEmptyState = useMemo(
         () => (
             <div className="flex min-h-screen flex-col items-center justify-center gap-4 px-6 text-center">
-                <Star className="size-8 text-primary" />
-                <h1 className="text-2xl font-semibold">Loading content...</h1>
+                <h1 className="text-2xl animate-pulse font-semibold">Loading content...</h1>
             </div>
         ),
         []
@@ -47,7 +46,7 @@ export function HeroCarousel({ tmdb, fetcher }: { tmdb: TMDB; fetcher: HeroFetch
         <Carousel setApi={setHeroApi} opts={{ loop: true }} className="h-full w-full">
             <CarouselContent className="ml-0 h-full">
                 {slides.map((slide) => (
-                    <CarouselItem key={`${slide.title}-${slide.year}`} className="pl-0">
+                    <CarouselItem key={`${slide.type}-${slide.id}`} className="pl-0">
                         <section className="relative h-[80vh] w-full overflow-hidden md:h-screen">
                             <div className="absolute inset-0">
                                 <img src={slide.image} alt={slide.title} className="h-full w-full object-cover object-center" />
@@ -76,13 +75,16 @@ export function HeroCarousel({ tmdb, fetcher }: { tmdb: TMDB; fetcher: HeroFetch
                                                 : slide.description}
                                         </p>
                                         <div className="flex flex-wrap items-center gap-3 pt-4">
-                                            <Button className="rounded-full px-7" onClick={() => {
-                                                if (slide.type === "movie") {
-                                                    navigate("/watch/movie/" + slide.id)
-                                                } else if (slide.type === "tv") {
-                                                    navigate("/watch/tv/" + slide.id + "?s=1&e=1")
-                                                }
-                                            }}>
+                                            <Button
+                                                className="rounded-full px-7"
+                                                onClick={() => {
+                                                    if (slide.type === "movie") {
+                                                        navigate("/watch/movie/" + slide.id)
+                                                    } else if (slide.type === "tv") {
+                                                        navigate("/watch/tv/" + slide.id + "?s=1&e=1")
+                                                    }
+                                                }}
+                                            >
                                                 <PlayCircle className="size-4" />
                                                 Play
                                             </Button>

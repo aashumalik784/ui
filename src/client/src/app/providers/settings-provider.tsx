@@ -35,6 +35,7 @@ export function AppSettingsProvider({ children }: { children: React.ReactNode })
     const [tmdbOptions, setTmdbOptions] = useState<TMDBOptions>({
         ...DEFAULT_TMDB_OPTIONS,
         region,
+        language: locale,
     })
 
     const value = useMemo(

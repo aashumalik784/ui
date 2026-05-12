@@ -28,6 +28,7 @@ import ConfirmDialog from "@/components/layout/ConfirmDialog.tsx"
 
 import { AlertTriangle, RefreshCcw, Star, Trash2 } from "lucide-react"
 import { useEffect } from "react"
+import i18n from "i18next"
 
 export default function Settings() {
     const { t } = useTranslation(["settings", "common", "header"])
@@ -51,6 +52,18 @@ export default function Settings() {
     }, [])
 
     const { region, locale, autoplayNext, tmdbApiKey, setLocale, setAutoplayNext, setRegion, standalone } = useAppSettings()
+    const tmdb = useTmdb()
+
+    const handleLanguageChange = (value: string) => {
+        setLocale(value as SupportedLocales)
+        // set i18n
+        i18n.changeLanguage(value).catch((err) => {
+            console.error("Failed to change language:", err)
+        })
+        // tmdb cache
+        tmdb.cache?.clear()
+        location.reload()
+    }
 
     const { valid, baseUrl, setBaseUrl } = useOmss()
     const { clear, history, remove } = useHistory()
@@ -111,9 +124,12 @@ export default function Settings() {
                                 <div>
                                     <Label>{t("general.language.cardlabel")}</Label>
                                     <span className="flex pt-1 text-muted-foreground">{t("general.language.info", { gitUrl: t("common:opensource.git-url") })}</span>
+                                    <span className="flex font-semibold pt-1 text-muted-foreground">
+                                        Translations for languages other than English were generated with AI assistance and may contain inaccuracies. If you want to contribute a better translation for your language, please visit the url above.
+                                    </span>
                                 </div>
 
-                                <Select value={locale} onValueChange={(value) => setLocale(value as SupportedLocales)}>
+                                <Select value={locale} onValueChange={(value) => handleLanguageChange(value)}>
                                     <SelectTrigger className="max-w-min">
                                         <SelectValue placeholder={t("general.language.placeholder")} />
                                     </SelectTrigger>
@@ -121,12 +137,13 @@ export default function Settings() {
                                     <SelectContent>
                                         <SelectGroup>
                                             <SelectLabel>{t("general.language.selectlabel")}</SelectLabel>
-
-                                            {supportedLocales.map((l) => (
-                                                <SelectItem key={l.iso639} value={l.iso639}>
-                                                    {l.label}
-                                                </SelectItem>
-                                            ))}
+                                            {[...supportedLocales]
+                                                .sort((a, b) => a.label.localeCompare(b.label))
+                                                .map((l) => (
+                                                    <SelectItem key={l.iso639} value={l.iso639}>
+                                                        {l.label}
+                                                    </SelectItem>
+                                                ))}
                                         </SelectGroup>
                                     </SelectContent>
                                 </Select>
@@ -144,7 +161,6 @@ export default function Settings() {
                                         localStorage.clear()
                                         location.reload()
                                     }}
-                                    classname="w-40"
                                     trigger={
                                         <Button variant="destructive" className={"max-w-min"}>
                                             <RefreshCcw />
@@ -248,9 +264,7 @@ export default function Settings() {
                         <CardHeader>
                             <CardTitle>{t("omss.title", { coreName: t("common:coreName") })}</CardTitle>
                             <CardDescription>{t("omss.description")}</CardDescription>
-                            <CardAction>
-                                {valid ? <Badge>{t("omss.connection.connected")}</Badge> : <Badge variant="destructive">{t("omss.connection.disconnected")}</Badge>}
-                            </CardAction>
+                            <CardAction>{valid ? <Badge>{t("omss.connection.connected")}</Badge> : <Badge variant="destructive">{t("omss.connection.disconnected")}</Badge>}</CardAction>
                         </CardHeader>
 
                         <CardContent>
