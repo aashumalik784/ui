@@ -171,7 +171,7 @@ export function SearchDialog() {
                 <div className="flex flex-col overflow-hidden">
                     <span className="truncate text-sm font-medium">{title}</span>
 
-                    <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                    <div className="flex items-center gap-4 text-xs text-muted-foreground outline-none ring-0 focus:outline-none focus:ring-0">
                         {rating !== null && <StarRating rating={rating} />}
 
                         <span>{subtitle}</span>
