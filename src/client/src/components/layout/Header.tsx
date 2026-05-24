@@ -26,7 +26,7 @@ export default function Header() {
                     <div className="flex flex-1 items-center gap-2">
                         <Link to="/" className="group inline-flex items-center gap-2">
                             <span className="inline-flex size-10 items-center justify-center overflow-hidden transition-transform duration-300 group-hover:scale-105">
-                                <Favicon/>
+                                <Favicon />
                             </span>
 
                             <span className="text-2xl font-semibold tracking-tight">{t("common:projectName")}</span>
@@ -65,12 +65,27 @@ export default function Header() {
                             <>
                                 <Tooltip>
                                     <TooltipTrigger asChild>
-                                        <Button size={"icon-lg"} variant={"ghost"} className={`hover:text-primary ${valid ? "hover:cursor-default" : ""}`} onClick={()=>{navigate("/settings?tab=omss")}}>
+                                        <Button
+                                            size={"icon-lg"}
+                                            variant={"ghost"}
+                                            className={`hover:text-primary ${valid ? "hover:cursor-default" : ""}`}
+                                            onClick={() => {
+                                                navigate("/settings?tab=omss")
+                                            }}
+                                        >
                                             {valid ? <LucideGlobeLock /> : <LucideGlobeX />}
                                         </Button>
                                     </TooltipTrigger>
                                     <TooltipContent className="text-center">
-                                        {valid ? "You are connected to your OMSS Server!" : <>You are not connected to any OMSS Server!<br/>Click me to connect to one.</>}
+                                        {valid ? (
+                                            "You are connected to your OMSS Server!"
+                                        ) : (
+                                            <>
+                                                You are not connected to any OMSS Server!
+                                                <br />
+                                                Click me to connect to one.
+                                            </>
+                                        )}
                                     </TooltipContent>
                                 </Tooltip>
                                 <Button asChild variant="outline">
