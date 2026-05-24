@@ -161,10 +161,10 @@ export default defineConfig({
                 prefer_related_applications: false,
             },
 
-            workbox: {
+            workbox: process.env.VITE_STANDALONE === "true" ? {
                 globPatterns: ["**/*.{js,css,html,svg,ico,json}"],
 
-                navigateFallback: "/index.html",
+                navigateFallback: "/",
 
                 cleanupOutdatedCaches: true,
 
@@ -218,7 +218,7 @@ export default defineConfig({
                         },
                     },
                 ],
-            },
+            } : {},
 
             devOptions: {
                 enabled: process.env.NODE_ENV !== "production" ? true : false,
